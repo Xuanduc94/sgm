@@ -31,13 +31,16 @@ class ContructionModel extends Model
                     $this->database->action(function () use ($highestRow, $worksheet) {
                         for ($row = 2; $row <= $highestRow; $row++) {
                             $data = [
-                                'WBS' => $worksheet->getCell("A{$row}")->getValue(),
-                                'FunctionCode' => $worksheet->getCell("B{$row}")->getValue(),
-                                'Date' => $worksheet->getCell("C{$row}")->getValue(),
+                                'WBS' => trim($worksheet->getCell("A{$row}")->getValue()),
+                                'FunctionCode' => trim($worksheet->getCell("B{$row}")->getValue()),
+                                'Date' => trim($worksheet->getCell("C{$row}")->getValue()),
                                 'Status' => 1,
                                 'User' => $worksheet->getCell("D{$row}")->getValue(),
                             ];
-                            $this->database->insert('contrucstion', $data);
+                            $check = $this->database->get('contrucstion', 'WBS', trim($worksheet->getCell("A{$row}")->getValue()));
+                            if($check != null){
+                                $this->database->insert('contrucstion', $data);
+                            }
                         }
                     });
                 } catch (Exception $e) {

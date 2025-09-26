@@ -33,6 +33,9 @@
                             -
                             <input class="is-small" type="date" id="maxDate" value="<?php echo date('Y-m-d') ?>" />
                         </div>
+                        <div class="cell">
+                            <a href="public/files/template.xlsx" class="button is-small is-info">Tải biểu mẫu</a>
+                        </div>
                     </div>
                 </div>
                 <div class="cell">
