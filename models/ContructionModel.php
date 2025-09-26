@@ -7,7 +7,7 @@ class ContructionModel extends Model
 
     public function getAll()
     {
-        $data =  $this->database->get('contrucstion', ['WBS', 'FunctionCode', 'Date', 'Status', 'User']);
+        $data =  $this->database->select('contrucstion', "*");
         return $data;
     }
 
@@ -25,29 +25,28 @@ class ContructionModel extends Model
                     die("Chỉ chấp nhận file Excel (.xls, .xlsx)");
                 }
                 try {
-                    // Đọc file Excel
                     $spreadsheet = IOFactory::load($fileTmpPath);
                     $worksheet = $spreadsheet->getActiveSheet();
                     $highestRow = $worksheet->getHighestRow();
-                    for ($row = 1; $row <= $highestRow; $row++) {
-                        $cellValue = $worksheet->getCellByColumnAndRow($col, $row)->getValue();
-                        $data = [
-                            'WBS' => $worksheet->getCellByColumnAndRow(1, $row)->getValue(),
-                            'FunctionCode' => $worksheet->getCellByColumnAndRow(2, $row)->getValue(),
-                            'Date' => $worksheet->getCellByColumnAndRow(3, $row)->getValue(),
-                            'Status' => $worksheet->getCellByColumnAndRow(4, $row)->getValue(),
-                            'User' => $worksheet->getCellByColumnAndRow(5, $row)->getValue(),
-                        ];
-                        $this->database->insert('contrucstion', $data);
-                    }
+                    $this->database->action(function () use ($highestRow, $worksheet) {
+                        for ($row = 2; $row <= $highestRow; $row++) {
+                            $data = [
+                                'WBS' => $worksheet->getCell("A{$row}")->getValue(),
+                                'FunctionCode' => $worksheet->getCell("B{$row}")->getValue(),
+                                'Date' => $worksheet->getCell("C{$row}")->getValue(),
+                                'Status' => 1,
+                                'User' => $worksheet->getCell("D{$row}")->getValue(),
+                            ];
+                            $this->database->insert('contrucstion', $data);
+                        }
+                    });
                 } catch (Exception $e) {
                     die("Lỗi đọc file: " . $e->getMessage());
                 }
             } else {
-                return "Chưa chọn file hoặc có lỗi khi upload.";
+                echo "Chưa chọn file hoặc có lỗi khi upload.";
             }
         }
-       return header("Refresh:0");
     }
 
     public function update()

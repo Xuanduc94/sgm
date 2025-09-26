@@ -7,7 +7,7 @@ class ContrucstionController extends Controller
     {
         $contructionModel =  new ContructionModel();
         $data = $contructionModel->getAll();
-        return json_encode($data);
+        echo json_encode($data);
     }
 
     public function index()
@@ -21,5 +21,6 @@ class ContrucstionController extends Controller
     {
         $contructionModel =  new ContructionModel();
         $data = $contructionModel->insert();
+        echo "OK";
     }
 }

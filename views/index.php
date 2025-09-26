@@ -8,11 +8,8 @@
     <link rel="stylesheet" href="public/lib/bulma/css/bulma.css" />
 
     <script src="https://unpkg.com/jquery/dist/jquery.min.js"></script>
-    <script src="https://unpkg.com/gridjs-jquery/dist/gridjs.production.min.js"></script>
-    <link
-        rel="stylesheet"
-        type="text/css"
-        href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.3.4/css/dataTables.dataTables.css" />
+    <script src="https://cdn.datatables.net/2.3.4/js/dataTables.js"></script>
 </head>
 
 <body>
@@ -25,22 +22,32 @@
                 <div class="cell">
                     <div class="grid">
                         <div class="cell">
-                            <form id="formImport" method="post" action="http://<?php echo $_SERVER['HTTP_HOST'] . '?c=contrucstion&a=insert' ?>">
-                                <label for="">Nhập dữ liệu</label>
-                                <input onchange="submitForm()" type="file" name="file" id="" />
-                            </form>
+                            <label for="">Nhập dữ liệu</label>
+                            <input accept=".xls,.xlsx" required type="file" name="file" id="file-excel" />
+                            <input onclick="submitForm()" class="button is-small is-info" type="button" value="Nhập dữ liệu">
                         </div>
 
                         <div class="cell">
                             <label for="">Thời gian</label>
-                            <input class="is-small" type="date" name="" value="<?php echo date('Y-m-d') ?>" />
+                            <input class="is-small" type="date" id="minDate" value="<?php echo date('Y-m-d') ?>" />
                             -
-                            <input class="is-small" type="date" name="" value="<?php echo date('Y-m-d') ?>" />
+                            <input class="is-small" type="date" id="maxDate" value="<?php echo date('Y-m-d') ?>" />
                         </div>
                     </div>
                 </div>
                 <div class="cell">
-                    <div id="construction"></div>
+                    <table id="construction">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>Mã công trình</th>
+                                <th>Mã trạm</th>
+                                <th>Ngày ký</th>
+                                <th>Người ký</th>
+                                <th>Trạng thái</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
                 </div>
             </div>
         </div>
