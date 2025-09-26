@@ -1,3 +1,4 @@
+const modal = document.getElementById("addModal");
 function callAPI(controller, action) {
     return `${location.origin}?c=${controller}&a=${action}`
 }
@@ -73,4 +74,25 @@ async function loadData() {
     let res = await client.get(callAPI('Contrucstion', 'getAll'))
     console.log(res.data);
 
+}
+
+function openModalAdd() {
+    modal.classList.add("is-active");
+}
+
+function closeModalAdd() {
+    modal.classList.remove("is-active");
+}
+
+async function save() {
+    let data = new FormData();
+    data.append("WBS", $("#WBS").val())
+    data.append("FunctionCode", $("#FunctionCode").val())
+    data.append("Date", $("#Date").val())
+    data.append("User", $("#User").val())
+
+    let res = await client.post(callAPI("Contrucstion", "inputWBS"), data);
+    if (res.data == "OK") {
+        location.reload();
+    }
 }

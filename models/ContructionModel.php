@@ -11,6 +11,26 @@ class ContructionModel extends Model
         return $data;
     }
 
+    public function inputWBS()
+    {
+        $data = [
+            'WBS' => $_POST['WBS'],
+            'FunctionCode' =>  $_POST['FunctionCode'],
+            'Date' =>  $_POST['Date'],
+            'Status' => 1,
+            'User' => $_POST['User'],
+        ];
+        $check = $this->database->has('contrucstion', ['WBS' => $data['WBS']]);
+        if ($check == false) {
+            $this->database->insert('contrucstion', $data);
+        }
+        return "OK";
+    }
+    function convertFormatDate($date)
+    {
+        $date = DateTime::createFromFormat("d/m/Y", $date);
+        return $date->format("Y-m-d");
+    }
     public function insert()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -30,12 +50,11 @@ class ContructionModel extends Model
                     $highestRow = $worksheet->getHighestRow();
                     $this->database->action(function () use ($highestRow, $worksheet) {
                         for ($row = 2; $row <= $highestRow; $row++) {
-                            $date = DateTime::createFromFormat("d/m/Y", trim($worksheet->getCell("C{$row}")->getValue()));
-                            $mysqlDate = $date->format("Y-m-d");
+                            $date = $this->convertFormatDate(trim($worksheet->getCell("C{$row}")->getValue()));
                             $data = [
                                 'WBS' => trim($worksheet->getCell("A{$row}")->getValue()),
                                 'FunctionCode' => trim($worksheet->getCell("B{$row}")->getValue()),
-                                'Date' => $mysqlDate,
+                                'Date' => $date,
                                 'Status' => 1,
                                 'User' => $worksheet->getCell("D{$row}")->getValue(),
                             ];

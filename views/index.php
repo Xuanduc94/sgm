@@ -25,11 +25,13 @@
                             <label for="">Nhập dữ liệu</label>
                             <input accept=".xls,.xlsx" required type="file" name="file" id="file-excel" />
                             <input onclick="submitForm()" class="button is-small is-info" type="button" value="Nhập dữ liệu">
+
+                            <button onclick="openModalAdd()" class="button is-primary is-small">Nhập trình ký</button>
                         </div>
 
                         <div class="cell">
                             <label for="">Thời gian</label>
-                            <input class="is-small" type="date" id="minDate" value="<?php echo date('Y-m-d') ?>" />
+                            <input class="is-small" type="date" id="minDate" value="<?php echo date('Y-m-01') ?>" />
                             -
                             <input class="is-small" type="date" id="maxDate" value="<?php echo date('Y-m-d') ?>" />
 
@@ -54,7 +56,42 @@
                 </div>
             </div>
         </div>
+        <!-- Modal -->
+        <div class="modal" id="addModal">
+            <div class="modal-background"></div>
+            <div class="modal-card">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">Nhập trình ký</p>
+                    <button onclick="closeModalAdd()" class="delete" aria-label="close" id="closeModal"></button>
+                </header>
+                <section class="modal-card-body">
+                    <div class="grid ">
+                        <div class="cell">
+                            <div class="control mb-3">
+                                <input type="text" id="WBS" class="input" placeholder="Mã công trình" />
+                            </div>
+                            <div class="control mb-3">
+                                <input id="FunctionCode" class="input" type="text" placeholder="Mã trạm" />
+                            </div>
+                            <div class="control mb-3">
+                                <input id="Date" type="date" value="<?php echo date('Y-m-d') ?>" class="input" placeholder="Ngày ký" />
+                            </div>
+                            <div class="control mb-3">
+                                <input id="User" type="text" class="input" placeholder="Người ký" />
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+                <footer class="modal-card-foot">
+                    <button onclick="save()" class="button is-success mr-2">Lưu</button>
+                    <button onclick="closeModalAdd()" class="button" id="cancelModal">Hủy</button>
+                </footer>
+            </div>
+        </div>
+        <p style="text-align: center;">Copyright © <?php echo date('Y') ?> By Nekonekonomi</p>
     </div>
+
 </body>
 <script src="public/js/http_client.js"></script>
 <script src="public/js/index.js"></script>

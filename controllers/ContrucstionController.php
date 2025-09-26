@@ -23,4 +23,10 @@ class ContrucstionController extends Controller
         $data = $contructionModel->insert();
         echo "OK";
     }
+    public function inputWBS()
+    {
+        $contructionModel =  new ContructionModel();
+        $data = $contructionModel->inputWBS();
+        echo $data;
+    }
 }

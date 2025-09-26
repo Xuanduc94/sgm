@@ -6,3 +6,12 @@ h3 {
   font-weight: bold;
   font-size: 20pt;
 }
+
+.control {
+  margin-bottom: 5px !important;
+}
+
+.modal-card-foot {
+  display: flex;
+  justify-content: end;
+}
