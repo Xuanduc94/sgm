@@ -32,10 +32,10 @@
                             <input class="is-small" type="date" id="minDate" value="<?php echo date('Y-m-d') ?>" />
                             -
                             <input class="is-small" type="date" id="maxDate" value="<?php echo date('Y-m-d') ?>" />
+
+                            <a href="public/files/template.xlsx">Tải biểu mẫu</a>
                         </div>
-                        <div class="cell">
-                            <a href="public/files/template.xlsx" class="button is-small is-info">Tải biểu mẫu</a>
-                        </div>
+
                     </div>
                 </div>
                 <div class="cell">

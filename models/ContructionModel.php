@@ -30,15 +30,17 @@ class ContructionModel extends Model
                     $highestRow = $worksheet->getHighestRow();
                     $this->database->action(function () use ($highestRow, $worksheet) {
                         for ($row = 2; $row <= $highestRow; $row++) {
+                            $date = DateTime::createFromFormat("d/m/Y", trim($worksheet->getCell("C{$row}")->getValue()));
+                            $mysqlDate = $date->format("Y-m-d");
                             $data = [
                                 'WBS' => trim($worksheet->getCell("A{$row}")->getValue()),
                                 'FunctionCode' => trim($worksheet->getCell("B{$row}")->getValue()),
-                                'Date' => trim($worksheet->getCell("C{$row}")->getValue()),
+                                'Date' => $mysqlDate,
                                 'Status' => 1,
                                 'User' => $worksheet->getCell("D{$row}")->getValue(),
                             ];
-                            $check = $this->database->get('contrucstion', 'WBS', trim($worksheet->getCell("A{$row}")->getValue()));
-                            if($check != null){
+                            $check = $this->database->has('contrucstion', ['WBS' => trim($worksheet->getCell("A{$row}")->getValue())]);
+                            if ($check == false) {
                                 $this->database->insert('contrucstion', $data);
                             }
                         }

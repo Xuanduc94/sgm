@@ -12,23 +12,13 @@ DataTable.ext.search.push(function (settings, data) {
     const dateStr = data[2];
     min = new Date(min);
     max = new Date(max);
-    const date = new Date(formatDdMmYyyyToYyyyMmDd(dateStr));
+    const date = new Date(dateStr);
     if (min.getTime() < date.getTime() && date.getTime() < max.getTime()) {
         return true;
     }
     return false;
 });
-function formatDdMmYyyyToYyyyMmDd(dateString) {
-    const parts = dateString.split('/'); // Splits "dd/mm/yyyy" into ["dd", "mm", "yyyy"]
-    if (parts.length === 3) {
-        const day = parts[0];
-        const month = parts[1];
-        const year = parts[2];
-        return new Date(`${year}-${month}-${day}`); // Reassembles as "yyyy-mm-dd"
-    } else {
-        return "Invalid date format"; // Handle cases where input format is incorrect
-    }
-}
+
 let table = new DataTable('table#construction', {
     responsive: true,
     processing: true,
@@ -37,7 +27,9 @@ let table = new DataTable('table#construction', {
     columns: [
         { data: 'WBS' },
         { data: 'FunctionCode' },
-        { data: 'Date' },
+        {
+            data: 'Date',
+        },
         { data: 'User' },
         {
             data: 'Status', render: function (data, type, row) {
@@ -46,6 +38,12 @@ let table = new DataTable('table#construction', {
         }
     ]
 });
+
+function formatDate(dateString) {
+    const [year, month, day] = dateString.split(" ")[0].split("-");
+    const formattedDate = `${day}/${month}/${year}`;
+    return formattedDate;
+}
 document.getElementById('minDate').addEventListener('change', () => table.draw());
 document.getElementById('maxDate').addEventListener('change', () => table.draw());
 function getStatus(status) {
