@@ -14,12 +14,16 @@ spl_autoload_register(function ($class) {
 // Lấy controller và action từ URL, mặc định: UserController@index
 $controllerName;
 $actionName;
-if (isset($_GET['c']) && isset($_GET['a'])) {
-    $controllerName = $_GET['c'];
-    $actionName = $_GET['a'];
-    $controllerClass = $controllerName . "Controller";
-    $controller = new $controllerClass;
-    $controller->$actionName();
-} else {
-    echo "SGM API version 1.0";
+try {
+    if (isset($_GET['c']) && isset($_GET['a'])) {
+        $controllerName = $_GET['c'];
+        $actionName = $_GET['a'];
+        $controllerClass = $controllerName . "Controller";
+        $controller = new $controllerClass;
+        $controller->$actionName();
+    } else {
+        echo "SGM API version 1.0";
+    }
+} catch (\Throwable $th) {
+    throw $th;
 }

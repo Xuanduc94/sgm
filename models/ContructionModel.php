@@ -65,7 +65,7 @@ class ContructionModel extends Model
                         }
                     });
                 } catch (Exception $e) {
-                    die("Lỗi đọc file: " . $e->getMessage());
+                    echo("Lỗi đọc file: " . $e->getMessage());
                 }
             } else {
                 echo "Chưa chọn file hoặc có lỗi khi upload.";

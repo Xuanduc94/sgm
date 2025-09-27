@@ -14,13 +14,7 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
-
--- Dumping database structure for sgm
-CREATE DATABASE IF NOT EXISTS `sgm` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `sgm`;
-
 -- Dumping structure for table sgm.contrucstion
-DROP TABLE IF EXISTS `contrucstion`;
 CREATE TABLE IF NOT EXISTS `contrucstion` (
   `Id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `WBS` text COLLATE utf8mb4_unicode_ci,
@@ -29,7 +23,7 @@ CREATE TABLE IF NOT EXISTS `contrucstion` (
   `Status` tinyint DEFAULT '1',
   `User` int DEFAULT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=99 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Data exporting was unselected.
 
