@@ -64,11 +64,12 @@ class ContructionModel extends Model
                             }
                         }
                     });
+                    return "OK";
                 } catch (Exception $e) {
-                    echo("Lỗi đọc file: " . $e->getMessage());
+                    return ("Lỗi đọc file: " . $e->getMessage());
                 }
             } else {
-                echo "Chưa chọn file hoặc có lỗi khi upload.";
+                return "Chưa chọn file hoặc có lỗi khi upload.";
             }
         }
     }

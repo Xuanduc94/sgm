@@ -7,7 +7,7 @@ class ContrucstionController extends Controller
     {
         $contructionModel =  new ContructionModel();
         $data = $contructionModel->getAll();
-        echo json_encode($data);
+        return $data;
     }
 
     public function index()

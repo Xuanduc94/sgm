@@ -43,4 +43,14 @@ $app->get('/', function (Request $request, Response $response, $args) {
     return $response;
 });
 
+$app->get('/all', function (Request $request, Response $response, $args) {
+    $controller = new ContrucstionController();
+    $data = $controller->getAll();
+    return $response->getBody()->write($data);
+});
+$app->get('/upload', function (Request $request, Response $response, $args) {
+    $controller = new ContrucstionController();
+    $data = $controller->getAll();
+    return $response->getBody()->write($data);
+});
 $app->run();
