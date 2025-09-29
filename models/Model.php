@@ -2,7 +2,9 @@
 require 'vendor/autoload.php';
 
 use Medoo\Medoo;
+use PDO;
 
+include_once 'models/Model.php';
 class Model
 {
     protected $database;

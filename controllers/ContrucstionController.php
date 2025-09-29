@@ -1,5 +1,12 @@
 <?php
 
+namespace controllers;
+
+use ContructionModel;
+
+include_once 'controllers/Controller.php';
+include_once 'models/ContructionModel.php';
+
 class ContrucstionController extends Controller
 {
 

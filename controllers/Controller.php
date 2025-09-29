@@ -1,4 +1,7 @@
 <?php
+
+namespace controllers;
+
 class Controller
 {
     protected $baseUrl = "http://sgm.test";

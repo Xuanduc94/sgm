@@ -24,7 +24,7 @@ let table = new DataTable('table#construction', {
     responsive: true,
     processing: true,
     serverSide: false,
-    ajax: { url: callAPI('Contrucstion', 'getAll'), dataSrc: "" },
+    ajax: { url: "all", dataSrc: "" },
     columns: [
         { data: 'WBS' },
         { data: 'FunctionCode' },
@@ -64,14 +64,14 @@ function getStatus(status) {
 async function submitForm() {
     let data = new FormData();
     data.append("file", $('#file-excel').prop('files')[0]);
-    let res = await client.post(callAPI('Contrucstion', 'insert'), data, { headers: "contentType: multipart/form-data" })
+    let res = await client.post("upload", data, { headers: "contentType: multipart/form-data" })
     if (res.data == "OK") {
         location.reload();
     }
 }
 
 async function loadData() {
-    let res = await client.get(callAPI('Contrucstion', 'getAll'))
+    let res = await client.get("/all")
     console.log(res.data);
 
 }

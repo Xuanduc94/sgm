@@ -1,38 +1,13 @@
 <?php
+error_reporting(0);
 
-// Tự động load các file cần thiết
-// spl_autoload_register(function ($class) {
-//     if (file_exists("core/$class.php")) {
-//         require "core/$class.php";
-//     } elseif (file_exists("controllers/$class.php")) {
-//         require "controllers/$class.php";
-//     } elseif (file_exists("models/$class.php")) {
-//         require "models/$class.php";
-//     }
-// });
-
-// Lấy controller và action từ URL, mặc định: UserController@index
-// $controllerName;
-// $actionName;
-// try {
-//     if (isset($_GET['c']) && isset($_GET['a'])) {
-//         $controllerName = $_GET['c'];
-//         $actionName = $_GET['a'];
-//         $controllerClass = $controllerName . "Controller";
-//         $controller = new $controllerClass;
-//         $controller->$actionName();
-//     } else {
-//         echo "SGM API version 1.0";
-//     }
-// } catch (\Throwable $th) {
-//     throw $th;
-// }
+use controllers\ContrucstionController;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Factory\AppFactory;
 
-require 'vendor/autoload.php';
 
+require 'vendor/autoload.php';
 $app = AppFactory::create();
 
 $app->get('/', function (Request $request, Response $response, $args) {
@@ -42,15 +17,19 @@ $app->get('/', function (Request $request, Response $response, $args) {
     $response->getBody()->write($output);
     return $response;
 });
+include_once 'controllers/ContrucstionController.php';
 
 $app->get('/all', function (Request $request, Response $response, $args) {
     $controller = new ContrucstionController();
     $data = $controller->getAll();
-    return $response->getBody()->write($data);
+    $response->getBody()->write(json_encode($data));
+    return $response;
 });
-$app->get('/upload', function (Request $request, Response $response, $args) {
-    $controller = new ContrucstionController();
-    $data = $controller->getAll();
-    return $response->getBody()->write($data);
+$app->post('/upload', function (Request $request, Response $response, $args) {
+    // $file = $request->getUploadedFiles();
+    // $controller = new ContrucstionController();
+    // $data = $controller->getAll();
+    $response->getBody()->write("Test");
+    return $response;
 });
 $app->run();

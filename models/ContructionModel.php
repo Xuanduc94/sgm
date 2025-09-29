@@ -1,7 +1,9 @@
 <?php
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use Exception;
 
+include_once 'models/Model.php';
 class ContructionModel extends Model
 {
 
